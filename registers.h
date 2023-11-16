@@ -1,5 +1,11 @@
 #pragma once
 
+#ifdef _MSC_VER
+	#define INLINE // __forceinline ???
+#else
+	#define INLINE inline __attribute__((always_inline))
+#endif
+
 #include <stdint.h>
 #include <stdexcept>
 
@@ -40,7 +46,7 @@ namespace RegistersNamespace {
 
 		// Templates and inlines require method definition directly in the .h file
 
-		template<Register reg> inline regInt getReg() {
+		template<Register reg> INLINE regInt getReg() {
 			switch (reg) {
 				// 8-bit register returns
 
@@ -69,7 +75,7 @@ namespace RegistersNamespace {
 
 		//template<Register reg> inline void setReg(regInt value) {}
 
-		template<Flag flag> inline bool getFlag() {
+		template<Flag flag> INLINE bool getFlag() {
 			switch (flag) {
 				case Flag::S:  return flags.bitField.S != 0;
 				case Flag::Z:  return flags.bitField.Z != 0;
@@ -85,7 +91,7 @@ namespace RegistersNamespace {
 
 		//template<Flag flag> inline void setFlag(bool value) {}
 
-		inline void setAllFlags(flagInt value) {
+		INLINE void setAllFlags(flagInt value) {
 			flags.value = value & 0b00011111;
 		}
 
