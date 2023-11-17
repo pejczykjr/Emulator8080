@@ -24,7 +24,7 @@ namespace RegistersNamespace {
 		AC  // Auxiliary carry flag
 	};
 
-	enum class Register {
+	enum class Reg {
 
 		// 8-bit registers
 		A,          // Accumulator
@@ -46,26 +46,26 @@ namespace RegistersNamespace {
 
 		// Templates and inlines require method definition directly in the .h file
 
-		template<Register reg> INLINE regInt getReg() {
+		template<Reg reg> INLINE regInt getReg() {
 			switch (reg) {
 				// 8-bit register returns
 
-				case Register::A: return A;
-				case Register::B: return B;
-				case Register::C: return C;		
-				case Register::D: return D;	
-				case Register::E: return E;
-				case Register::H: return H;
-				case Register::L: return L;		
+				case Reg::A: return A;
+				case Reg::B: return B;
+				case Reg::C: return C;		
+				case Reg::D: return D;	
+				case Reg::E: return E;
+				case Reg::H: return H;
+				case Reg::L: return L;		
 
 				//16-bit register returns
 
-				case Register::PSW: return ((A << 8) & 0x000000FF) | (flags.value & 0x000000FF);					
-				case Register::BC:  return ((B << 8) & 0x000000FF) | (C & 0x000000FF);					
-				case Register::DE:  return ((D << 8) & 0x000000FF) | (E & 0x000000FF);					
-				case Register::HL:  return ((H << 8) & 0x000000FF) | (L & 0x000000FF);					
-				case Register::SP:  return SP;					
-				case Register::PC:  return PC;
+				case Reg::PSW: return ((A & 0x000000FF) << 8) | (flags.value & 0x000000FF);					
+				case Reg::BC:  return ((B & 0x000000FF) << 8) | (C & 0x000000FF);
+				case Reg::DE:  return ((D & 0x000000FF) << 8) | (E & 0x000000FF);
+				case Reg::HL:  return ((H & 0x000000FF) << 8) | (L & 0x000000FF);
+				case Reg::SP:  return SP;					
+				case Reg::PC:  return PC;
 					
 				default:
 					throw std::invalid_argument("Invalid register get");

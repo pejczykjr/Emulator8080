@@ -8,7 +8,7 @@ int main() {
 
 	test.setAllFlags(0b00010101);
 
-	std::cout << test.getReg<Register::A>() << std::endl;
+	std::cout << test.getReg<Reg::A>() << std::endl;
 	std::cout << test.getFlag<Flag::AC>() << std::endl;
 
 	return 0;
